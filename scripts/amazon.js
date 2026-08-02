@@ -1,6 +1,6 @@
 import {cart} from '../data/cart.js'
 import {products} from '../data/products.js'
-import { addToDo } from '../data/cart.js';
+import { addToDo } from '../data/cart.js'
 let productsList = '';
 
 products.forEach((product)=>{
