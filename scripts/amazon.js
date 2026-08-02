@@ -1,4 +1,6 @@
-
+import {cart} from '../data/cart.js'
+import {products} from '../data/products.js'
+import { addToDo } from '../data/cart.js';
 let productsList = '';
 
 products.forEach((product)=>{
@@ -55,28 +57,18 @@ products.forEach((product)=>{
 
 document.querySelector('.products-grid').innerHTML=productsList;
 
+function UpdateCardQuantity(){
+    let cartQuantity =0;
+    cart.forEach((item)=>{
+        cartQuantity+=item.quantity;
+    });
+    document.querySelector(".cart-quantity").innerHTML= cartQuantity;
+}
 document.querySelectorAll('.add-to-cart-button').forEach((button)=>{
     button.addEventListener('click',()=>{
         const productId = button.dataset.productId;
-        let matchingItem ;
-        cart.forEach((item)=>{
-            if(item.productId === productId){
-                matchingItem = item;
-            }});
-        if (matchingItem){
-            matchingItem.quantity+=1;
-        }else{
-            cart.push({
-            productId : productId,
-            quantity : 1
-        });
-        }
-        let cartQuantity =0;
-        cart.forEach((item)=>{
-            cartQuantity+=item.quantity;
-        });
-        document.querySelector(".cart-quantity").innerHTML= cartQuantity;
-            
+        addToDo(productId);
+        UpdateCardQuantity();   
     }); 
         
 });
