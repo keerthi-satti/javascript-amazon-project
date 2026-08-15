@@ -16,6 +16,7 @@ if (!cart){
 function saveToStorage(){
     localStorage.setItem('cart',JSON.stringify(cart))
 }
+
 export function addToDo(productId){
     let matchingItem ;
     cart.forEach((item)=>{
@@ -42,5 +43,15 @@ export function removeCartItem(productId){
     }
     });
     cart = newcart;
+    saveToStorage();
+}
+
+export function updateDeliveryOption (productId, deliveryOptionId){
+    let matchingItem ;
+    cart.forEach((item)=>{
+        if(item.productId === productId){
+            matchingItem = item;
+        }});
+    matchingItem.deliveryOptionId = deliveryOptionId;
     saveToStorage();
 }
