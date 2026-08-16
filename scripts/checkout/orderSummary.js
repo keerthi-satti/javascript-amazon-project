@@ -19,7 +19,7 @@ export function renderOrderSummary (){
         const dateString = deliveryData.format('dddd, MMMM D');
 
         cartSummary += `
-        <div class="cart-item-container cart-item-container-${matchingProduct.id}">
+        <div class="cart-item-container js-cart-item-container cart-item-container-${matchingProduct.id}">
 
             <div class="delivery-date">
                 Delivery date: ${dateString}
@@ -40,7 +40,7 @@ export function renderOrderSummary (){
                         $${formatCurrency(matchingProduct.priceCents)}
                     </div>
 
-                    <div class="product-quantity">
+                    <div class="product-quantity js-product-quantity-${matchingProduct.id}">
                         <span>
                             Quantity: <span class="quantity-label">
                                 ${cartItem.quantity}
@@ -52,7 +52,7 @@ export function renderOrderSummary (){
                         </span>
 
                         <span
-                            class="delete-quantity-link link-primary"
+                            class="delete-quantity-link link-primary js-delete-link-${matchingProduct.id}"
                             data-product-id="${matchingProduct.id}">
                             Delete
                         </span>
@@ -75,7 +75,7 @@ export function renderOrderSummary (){
         </div>
     `;
     });
-    document.querySelector('.order-summary').innerHTML = cartSummary;
+    document.querySelector('.js-order-summary').innerHTML = cartSummary;
 
     document.querySelectorAll('.delete-quantity-link').forEach((link)=>{
         link.addEventListener('click',()=>{
@@ -96,22 +96,22 @@ export function renderOrderSummary (){
             const dateString = deliveryData.format('dddd, MMMM D');
             const priceString = deliveryOption.priceCents === 0 ? "FREE" : `$${formatCurrency(deliveryOption.priceCents) } -`
             const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
-        html += `<div class="delivery-option js-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-option-id="${deliveryOption.id}">
-            <input type="radio" ${isChecked? 'checked': ''}
-                class="delivery-option-input"
-                name="delivery-option-${matchingProduct.id}">
-            <div>
-                <div class="delivery-option-date">
-                ${dateString}
+            html += `<div class="delivery-option js-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-option-id="${deliveryOption.id}">
+                <input type="radio" ${isChecked? 'checked': ''}
+                    class="delivery-option-input"
+                    name="delivery-option-${matchingProduct.id}">
+                <div>
+                    <div class="delivery-option-date">
+                    ${dateString}
+                    </div>
+                    <div class="delivery-option-price">
+                    ${priceString} Shipping
+                    </div>
                 </div>
-                <div class="delivery-option-price">
-                ${priceString} Shipping
-                </div>
-            </div>
-        </div>`
+            </div>`
 
-    });
-    return html;
+        });
+        return html;
     }
 
     document.querySelectorAll(".js-delivery-option").forEach((element)=>{
