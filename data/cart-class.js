@@ -1,12 +1,13 @@
 class Cart{
         cartItem;
-        localStorageKey;
+        #localStorageKey;
 
         constructor(localStorageKey){
-            this.localStorageKey = localStorageKey;
+            this.#localStorageKey = localStorageKey;
+            this.#loadFromStorage();
         }
-        loadFromStorage(){
-            this.cartItem = JSON.parse(localStorage.getItem(this.localStorageKey));
+        #loadFromStorage(){
+            this.cartItem = JSON.parse(localStorage.getItem(this.#localStorageKey));
             if (!this.cartItem){
                 this.cartItem =[{
                     productId : 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -24,7 +25,7 @@ class Cart{
         }
 
         saveToStorage(){
-            localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItem))
+            localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItem))
         }
 
         addToDo(productId){
@@ -71,10 +72,4 @@ const cart = new Cart('cart-oop');
 
 const businessCart = new Cart('business-cart');
 
-
-cart.loadFromStorage();
 console.log(cart);
-
-
-businessCart.loadFromStorage();
-console.log(businessCart);
