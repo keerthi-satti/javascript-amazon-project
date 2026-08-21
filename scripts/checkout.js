@@ -4,7 +4,19 @@ import "../data/cart-class.js";
 import { loadProducts, loadProductFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 
+async function loadPage(){
+    await loadProductFetch(),
+    await new Promise((resolve)=>{
+        loadCart(()=>{
+            resolve();
+        })
+    })
+    renderOrderSummary();
+    renderPaymentSummary();
+}
+loadPage();
 
+/*
 Promise.all([
     loadProductFetch(),
     new Promise((resolve)=>{
@@ -16,6 +28,7 @@ Promise.all([
     renderOrderSummary();
     renderPaymentSummary();
 })
+*/
 
 /*
 loadProducts(()=>{
